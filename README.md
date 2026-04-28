@@ -1,71 +1,41 @@
-# MoneyWise - Personal Finance Management
+# MoneyWise - Smart Personal Finance Management
 
-A secure, responsive personal finance tracking application built with React, TypeScript, and Firebase.
+MoneyWise is a secure, responsive, and private personal finance tracking application built for individuals and their friends to manage money effectively.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Live Application:** [https://mymoney-cf6c2.web.app](https://mymoney-cf6c2.web.app)
 
-## React Compiler
+## 🚀 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔐 Secure Authentication
+- **Google Sign-In**: Quick and secure access using your Google account.
+- **Email/Password**: Traditional sign-up and login options.
+- **Private Data**: Every user gets a private workspace; your financial data is visible only to you.
 
-## Expanding the ESLint configuration
+### 📊 Smart Dashboard
+- **Consolidated Overview**: View your total balance, monthly income, and monthly expenses in one glance.
+- **Pending Dues**: Real-time count of upcoming mandatory payments (Pay vs. Receive).
+- **Person-wise Tracking**: Dedicated cards showing net debt/credit for every person you've transacted with.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📅 Mandatory Payments (Recurring)
+- **Bill Management**: Set up monthly recurring items like Rent, EMI, Water, and Power bills.
+- **One-Click Actions**: Easily "Mark as Paid" or "Mark as Received" to convert reminders into actual transactions.
+- **Overdue Alerts**: Clear visual indicators for upcoming and overdue monthly items.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 📝 Transaction Management
+- **Searchable Categories**: Wide range of categories (Food, Travel, EMI, etc.) with colorful visual icons.
+- **Precise Timing**: Automatic capture of date and exact time for every transaction.
+- **Full History**: Access your entire transaction history with advanced filters by category, type, or search terms.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 📱 Fully Responsive
+- **Any Device**: Optimized experience for Mobile, Tablet, and Desktop.
+- **Mobile-First History**: Transaction table transforms into clean cards on small screens for easy mobile management.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠️ Built With
+- **React + TypeScript**
+- **Vite** (Frontend Tooling)
+- **Tailwind CSS** (Styling)
+- **Firebase** (Auth, Firestore, Hosting)
+- **Lucide React** (Iconography)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+© 2026 MoneyWise • Smart Personal Finance
