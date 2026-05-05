@@ -16,7 +16,6 @@ import {
   MoreHorizontal,
   CreditCard,
   Users,
-  History,
   Check,
   Wrench,
   Smartphone,
