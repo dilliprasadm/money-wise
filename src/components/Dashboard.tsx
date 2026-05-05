@@ -1,14 +1,24 @@
+import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import type { Transaction } from "@/types/transaction"
 import type { RecurringItem } from "@/types/recurring"
-import { Wallet, Users, AlertCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react"
+import { Wallet, Users, AlertCircle, TrendingUp, TrendingDown, Calendar, Check, X } from "lucide-react"
 
 interface DashboardProps {
   transactions: Transaction[]
   recurringItems?: RecurringItem[]
+  onAddTransaction?: (transaction: Omit<Transaction, 'id' | 'createdAt'>) => void
 }
 
-export function Dashboard({ transactions, recurringItems = [] }: DashboardProps) {
+export function Dashboard({ transactions, recurringItems = [], onAddTransaction }: DashboardProps) {
+  const [settleInfo, setSettleInfo] = useState<{
+    name: string;
+    type: 'repaid' | 'received';
+    amount: string;
+  } | null>(null);
+
   const now = new Date();
   const currentMonthStr = now.toISOString().slice(0, 7); // "YYYY-MM"
   const currentMonthName = now.toLocaleString('default', { month: 'long' });
@@ -76,7 +86,35 @@ export function Dashboard({ transactions, recurringItems = [] }: DashboardProps)
       balance: stats.credit - stats.debit,
       ...stats
     }))
+    .filter(p => Math.abs(p.balance) > 0.01) // Filter out settled balances
     .sort((a, b) => Math.abs(b.balance) - Math.abs(a.balance));
+
+  const handleSettle = (name: string, balance: number) => {
+    setSettleInfo({
+      name,
+      type: balance > 0 ? 'repaid' : 'received',
+      amount: Math.abs(balance).toString()
+    });
+  };
+
+  const confirmSettle = () => {
+    if (!settleInfo || !onAddTransaction) return;
+
+    const amount = parseFloat(settleInfo.amount);
+    if (isNaN(amount) || amount <= 0) return;
+
+    onAddTransaction({
+      amount,
+      date: new Date().toISOString().split('T')[0],
+      time: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
+      category: 'Debt Settlement',
+      description: `${settleInfo.type === 'repaid' ? 'Repaid to' : 'Received from'} ${settleInfo.name}`,
+      type: settleInfo.type === 'repaid' ? 'debit' : 'credit',
+      person: settleInfo.name
+    });
+
+    setSettleInfo(null);
+  };
 
   return (
     <div className="space-y-6">
@@ -160,7 +198,7 @@ export function Dashboard({ transactions, recurringItems = [] }: DashboardProps)
           <CardContent className="px-3 md:px-6">
             <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {peopleWithBalances.map((person) => (
-                <div key={person.name} className="flex flex-col p-3 md:p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all active:scale-[0.98]">
+                <div key={person.name} className="flex flex-col p-3 md:p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all">
                   <div className="flex justify-between items-start mb-2 md:mb-3">
                     <span className="font-bold text-slate-700 md:text-lg truncate max-w-[120px]">{person.name}</span>
                     <span className={`text-[8px] md:text-[9px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-tighter md:tracking-normal ${
@@ -169,7 +207,8 @@ export function Dashboard({ transactions, recurringItems = [] }: DashboardProps)
                       {person.balance > 0 ? 'You Owe' : 'Owes You'}
                     </span>
                   </div>
-                  <div className="flex justify-between items-end">
+                  
+                  <div className="flex justify-between items-end mb-3">
                     <div className="text-[9px] md:text-[10px] text-muted-foreground space-y-0.5 font-medium">
                       <div className="flex justify-between gap-3">
                         <span>Borrowed:</span>
@@ -184,6 +223,44 @@ export function Dashboard({ transactions, recurringItems = [] }: DashboardProps)
                       ₹{Math.abs(person.balance).toLocaleString()}
                     </div>
                   </div>
+
+                  {settleInfo?.name === person.name ? (
+                    <div className="mt-2 p-2 bg-slate-50 rounded-lg border border-slate-200 animate-in zoom-in-95 duration-200">
+                      <div className="flex flex-col gap-2">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase">
+                          Amount {settleInfo.type === 'repaid' ? 'Repaid' : 'Received'}
+                        </label>
+                        <div className="flex gap-2">
+                          <Input 
+                            type="number" 
+                            value={settleInfo.amount} 
+                            onChange={(e) => setSettleInfo({...settleInfo, amount: e.target.value})}
+                            className="h-8 text-xs font-bold"
+                            autoFocus
+                          />
+                          <Button size="sm" className="h-8 w-8 p-0" onClick={confirmSettle}>
+                            <Check className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="outline" className="h-8 w-8 p-0" onClick={() => setSettleInfo(null)}>
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className={`w-full h-8 text-[10px] font-black uppercase tracking-wider mt-1 rounded-lg ${
+                        person.balance > 0 
+                        ? 'border-blue-200 text-blue-700 hover:bg-blue-50' 
+                        : 'border-orange-200 text-orange-700 hover:bg-orange-50'
+                      }`}
+                      onClick={() => handleSettle(person.name, person.balance)}
+                    >
+                      {person.balance > 0 ? 'I Repaid' : 'I Received'}
+                    </Button>
+                  )}
                 </div>
               ))}
             </div>

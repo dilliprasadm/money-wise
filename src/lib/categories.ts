@@ -16,7 +16,9 @@ import {
   MoreHorizontal,
   CreditCard,
   Users,
-  History
+  History,
+  Check,
+  Wrench
 } from "lucide-react"
 
 export const CATEGORIES = [
@@ -25,6 +27,7 @@ export const CATEGORIES = [
   { id: "transport", name: "Transportation", icon: Car, color: "text-blue-500" },
   { id: "entertainment", name: "Entertainment", icon: Music, color: "text-purple-500" },
   { id: "medical", name: "Medical", icon: Stethoscope, color: "text-red-500" },
+  { id: "maintenance", name: "Maintenance", icon: Wrench, color: "text-slate-600" },
   { id: "power", name: "Power Bill", icon: Zap, color: "text-yellow-600" },
   { id: "water", name: "Water Bill", icon: Droplets, color: "text-blue-600" },
   { id: "housing", name: "Housing/Rent", icon: Home, color: "text-amber-700" },
@@ -38,5 +41,6 @@ export const CATEGORIES = [
   { id: "gifts", name: "Gifts", icon: Gift, color: "text-rose-400" },
   { id: "friend", name: "Friend", icon: Users, color: "text-indigo-400" },
   { id: "past", name: "Past Expense", icon: History, color: "text-slate-400" },
+  { id: "settlement", name: "Debt Settlement", icon: Check, color: "text-emerald-500" },
   { id: "other", name: "Other", icon: MoreHorizontal, color: "text-slate-500" },
 ]

@@ -110,7 +110,11 @@ function App() {
               {view === "dashboard" ? (
                 <>
                   <section>
-                    <Dashboard transactions={transactions} recurringItems={items} />
+                    <Dashboard 
+                      transactions={transactions} 
+                      recurringItems={items} 
+                      onAddTransaction={addTransaction}
+                    />
                   </section>
 
                   <div className="grid gap-8 lg:grid-cols-12">
