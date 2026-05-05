@@ -16,11 +16,13 @@ import {
   MoreHorizontal,
   CreditCard,
   Users,
+  History,
   Check,
   Wrench,
   Smartphone,
   Tv,
   Flame,
+  Fuel
 } from "lucide-react"
 
 export const CATEGORIES = [
@@ -32,11 +34,13 @@ export const CATEGORIES = [
   { id: "maintenance", name: "Maintenance", icon: Wrench, color: "text-slate-600" },
   { id: "mobile", name: "Mobile Recharge", icon: Smartphone, color: "text-sky-400" },
   { id: "dth", name: "DTH Recharge", icon: Tv, color: "text-indigo-400" },
-  { id: "lpg", name: "Gas Bill", icon: Flame, color: "text-orange-600" },
-  { id: "power", name: "Electricity Bill", icon: Zap, color: "text-yellow-600" },
+  { id: "lpg", name: "LPG Gas Bill", icon: Flame, color: "text-orange-600" },
+  { id: "fuel", name: "Fuel", icon: Fuel, color: "text-gray-600" },
+  { id: "electricity", name: "Electricity Bill", icon: Zap, color: "text-yellow-600" },
   { id: "water", name: "Water Bill", icon: Droplets, color: "text-blue-600" },
   { id: "housing", name: "Housing/Rent", icon: Home, color: "text-amber-700" },
   { id: "emi", name: "EMI", icon: CreditCard, color: "text-red-400" },
+  { id: "utilities", name: "Utilities", icon: Zap, color: "text-yellow-500" },
   { id: "salary", name: "Salary/Income", icon: Banknote, color: "text-green-500" },
   { id: "travel", name: "Travel", icon: Plane, color: "text-sky-500" },
   { id: "drinks", name: "Drinks/Cafe", icon: Coffee, color: "text-brown-500" },
@@ -44,6 +48,7 @@ export const CATEGORIES = [
   { id: "education", name: "Education", icon: GraduationCap, color: "text-indigo-500" },
   { id: "gifts", name: "Gifts", icon: Gift, color: "text-rose-400" },
   { id: "friend", name: "Friend", icon: Users, color: "text-indigo-400" },
-  { id: "settlement", name: "Settlement", icon: Check, color: "text-emerald-500" },
+  { id: "past", name: "Past Expense", icon: History, color: "text-slate-400" },
+  { id: "settlement", name: "Debt Settlement", icon: Check, color: "text-emerald-500" },
   { id: "other", name: "Other", icon: MoreHorizontal, color: "text-slate-500" },
 ]
